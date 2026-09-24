@@ -1,0 +1,870 @@
+/* ============================================================
+   Home updates — prototype recipes that rmx.css does not cover yet.
+
+   NOT a foundation file: check.mjs --fix never touches it. Everything here
+   was read off the RMX Pages mocks (file 5XEzI94nmZsWE7rQQ7OIHP) through the
+   Figma MCP on 2026-09-23 — bound variables, padding, gaps and named text
+   styles, not eyeballed from screenshots. Each block names the component.
+
+   Anything in here is a candidate for rmx.css. It is listed in PROTOTYPE.md
+   under "Worth raising with the design system" so Emma can decide.
+   Tokens only; the new token values at the top are the harvested ones.
+   ============================================================ */
+
+:root {
+  /* Harvested 2026-09-23 [M] — not yet in tokens.css */
+  --border-scoreboard: #425a70;          /* Border/border-scoreboard — Scoreboard colour bar */
+  --border-notice: #f79b4d;              /* Border/border-notice — Callout Type=Warning, Filter Button */
+  --border-success: #a8d48f;             /* Border/border-success */
+  --component-lozenge-notice: #feedd2;   /* Component/lozenge-notice */
+  --component-register-row-striped: #f5f8fa; /* Component/register-row-striped */
+  --component-register-row-hover: #ebf1f5;   /* Component/register-row-hover (Foundations; used by Unit Card) */
+  --background-secondary-button-hover: #ebf1f5; /* Background/Button/secondary-button-hover */
+  --component-context-search: rgba(0, 113, 170, .70); /* Light Alpha/Blue/70-600 — Context Bar search fill */
+  --icon-primary: #008dd5;               /* Icon/icon-primary */
+  --slide-toggle-unselected-track: rgba(102, 102, 102, .50);
+  --spacing-5xl: 56px;                   /* Spacing/5xl — Add Wizard canvas inline padding */
+}
+
+/* ---------- Page grounds ---------- */
+/* Detail pages: Main content, fill Background/background-ui-secondary,
+   padding md/xl, gap lg (20). Register pages: background-ui-primary, gap md. */
+.rmx-page--detail {
+  display: flex; flex-direction: column; gap: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--background-ui-secondary);
+}
+.rmx-page--register {
+  display: flex; flex-direction: column; gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: var(--background-ui-primary);
+}
+.rmx-shell--detail { min-height: calc(100vh - 88px); }
+.rmx-actionbar { justify-content: flex-start; }
+.rmx-actionbar > button {
+  all: unset; cursor: pointer; width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center; color: var(--text-ondark);
+}
+
+/* Tile rows — equal-height tiles, gap lg (20). */
+.rmx-tilerow { display: flex; gap: var(--spacing-lg); align-items: stretch; }
+.rmx-tilerow > .rmx-tile { flex: 1 1 0; min-width: 0; }
+
+/* ---------- Context Bar items ---------- */
+/* Content=Search: Input Field Style=Express Size=Small, 248x32,
+   fill Light Alpha/Blue/70-600, 1px brand-primary-disabled, white text. */
+.rmx-contextbar .rmx-ctxsearch {
+  display: flex; align-items: center; gap: var(--spacing-xxs);
+  width: 248px; height: 32px; padding: var(--spacing-xs);
+  background: var(--component-context-search);
+  border: 1px solid var(--background-brand-primary-disabled); border-radius: var(--radius-sm);
+  color: var(--text-ondark); font: var(--type-label-m-regular);
+}
+.rmx-ctxsearch > .rmx-icon { color: var(--icon-primary); }
+/* Pagination Style=Compact — 32x36 block buttons, counter padding 0/xs, gap xxs. */
+.rmx-pager { display: flex; align-items: center; height: 36px; border-radius: var(--radius-sm); overflow: hidden; }
+.rmx-pager > button {
+  all: unset; cursor: pointer; width: 32px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--background-primary-button); color: var(--text-ondark);
+}
+.rmx-pager > button:disabled { background: var(--background-brand-primary-disabled); cursor: default; }
+.rmx-pager > button .rmx-icon { width: 24px; height: 24px; }
+.rmx-pager__count {
+  display: flex; gap: var(--spacing-xxs); padding: 0 var(--spacing-xs);
+  font: var(--type-label-m-regular);   /* not bold (Izabella, 2026-09-24); the library text is unstyled 14/Medium */
+  color: var(--text-ondark);
+}
+/* Filter Button — Button Type=Secondary Size=Compact, filled tertiary-button,
+   border-notice, white label, tune + close 16px icons. */
+.rmx-filterbtn {
+  all: unset; cursor: pointer; display: inline-flex; align-items: center;
+  height: 24px; padding: 0 var(--spacing-xs);
+  background: var(--background-tertiary-button); border: 1px solid var(--border-notice);
+  border-radius: var(--radius-sm); color: var(--text-ondark); font: var(--type-label-m-regular);
+}
+.rmx-filterbtn > span { padding: 0 var(--spacing-xs); }
+
+/* ---------- Scoreboard Header content ---------- */
+.rmx-scoreboard__bar { background: var(--border-scoreboard); }
+.rmx-scoreboard__content {
+  justify-content: space-between; gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-2xl);
+}
+.rmx-scoreboard__lead { display: flex; align-items: center; gap: var(--spacing-md); min-width: 0; }
+.rmx-scoreboard__lines { display: flex; flex-direction: column; gap: var(--spacing-md); min-width: 0; }
+.rmx-scoreboard__row1 { display: flex; align-items: center; gap: var(--spacing-3xl); flex-wrap: wrap; }
+.rmx-scoreboard__row1--tight { gap: var(--spacing-2xl); }
+.rmx-scoreboard__name { font: var(--type-paragraph-l-semibold); color: var(--text-secondary); }
+.rmx-scoreboard__acct { display: flex; gap: var(--spacing-xs); font: var(--type-label-l-italic); color: var(--text-secondary); }
+.rmx-scoreboard__lozenges { display: flex; gap: var(--spacing-md); }
+.rmx-scoreboard__row2 { display: flex; align-items: center; gap: var(--spacing-2xl); flex-wrap: wrap; }
+/* Scoreboard Item Style=Icon Item — 20px brand icon, gap xs, Label/M/Regular */
+.rmx-sbitem { display: inline-flex; align-items: center; gap: var(--spacing-xs); font: var(--type-label-m-regular); color: var(--text-secondary); }
+.rmx-sbitem > .rmx-icon { color: var(--icon-primary); }
+.rmx-scoreboard__trail { display: flex; align-items: center; gap: var(--spacing-2xl); flex: none; }
+.rmx-scoreboard__figures { display: flex; flex-direction: column; align-items: flex-end; gap: var(--spacing-lg); }
+/* Scoreboard Item Style=Balance Item — gap xl, padding xxs/0, Label/L */
+.rmx-sbbalance { display: flex; align-items: center; justify-content: flex-end; gap: var(--spacing-xl); padding: var(--spacing-xxs) 0; font: var(--type-label-l-regular); color: var(--text-secondary); }
+.rmx-sbbalance > :last-child { min-width: 86px; text-align: right; }
+.rmx-sbbalance--strong > :last-child { font: var(--type-label-l-semibold); }
+.rmx-scoreboard__actions { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.rmx-scoreboard__actions > .rmx-split > .rmx-split__main { flex: 1; justify-content: center; }
+/* Avatar — solid container-secondary circle, white initials. */
+.rmx-avatar {
+  flex: none; display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-round); background: var(--container-secondary); color: var(--text-inverse);
+}
+.rmx-avatar--64 { width: 64px; height: 64px; font: var(--type-heading-xl-semibold); }  /* Style=Scoreboard/Initials */
+.rmx-avatar--48 { width: 48px; height: 48px; font: var(--type-heading-m-semibold); }   /* Style=Default */
+/* Lozenge text is text-onlight Label/M/Regular in the library. */
+.rmx-lozenge { font: var(--type-label-m-regular); color: var(--text-onlight); }
+.rmx-lozenge--notice { background: var(--component-lozenge-notice); padding: var(--spacing-xxs) var(--spacing-xs); }
+.rmx-lozenge--notice::before { display: none; }
+
+/* ---------- Layout Tab Row ---------- */
+.rmx-tabrow--layout .rmx-tab { padding-inline: var(--spacing-xl); font: var(--type-label-m-semibold); border-bottom: 1px solid var(--border-primary); }
+/* Designer decision (Izabella, 2026-09-23): the layout tab row follows the
+   RMX Pages mocks, which override the Tabs stroke to Border/border-attention
+   (orange). The library default is border-secondary blue. See PROTOTYPE.md. */
+.rmx-tabrow--layout .rmx-tab[aria-selected="true"] { border-bottom: 2px solid var(--border-attention); }
+/* Same decision for tile headers the mocks recolour to Border/border-success. */
+.rmx-tile__header--success { border-bottom-color: var(--border-success); }
+.rmx-tabrow--fill { border-bottom: 1px solid var(--border-primary); }
+.rmx-tabrow--fill .rmx-tab { flex: 1; font: var(--type-label-m-semibold); }
+.rmx-tabrow--fill .rmx-tab[aria-selected="true"] { margin-bottom: -1px; }
+
+/* ---------- Callout content ---------- */
+.rmx-callout { padding: var(--spacing-sm) var(--spacing-xs); }
+.rmx-callout > .rmx-icon { color: var(--icon-primary); }
+.rmx-callout--warning { border-color: var(--border-notice); padding: var(--spacing-sm) var(--spacing-md); gap: var(--spacing-2xl); }
+.rmx-callout__items { display: flex; align-items: center; gap: var(--spacing-lg); }
+.rmx-callout__title { font: var(--type-label-m-semibold); color: var(--text-secondary); }
+.rmx-callout__text { font: var(--type-paragraph-s-regular); color: var(--text-secondary); }
+/* Input Field Style=Read-only/Inline Size=Small — SemiBold label, gap xs, value */
+.rmx-inline { display: inline-flex; align-items: center; gap: var(--spacing-xs); }
+.rmx-inline__label { font: var(--type-label-m-semibold); color: var(--text-secondary); }
+.rmx-inline__value { font: var(--type-label-m-regular); color: var(--text-secondary); }
+.rmx-callout__end { margin-left: auto; }
+
+/* ---------- Tile internals ---------- */
+.rmx-tile__header { gap: var(--spacing-xs); }
+.rmx-tile__title { font: var(--type-label-m-semibold); display: inline-flex; align-items: center; gap: var(--spacing-xxs); }
+.rmx-tile__title > .rmx-icon { color: var(--icon-primary); }
+.rmx-tile__actions { gap: var(--spacing-sm); }
+.rmx-tile__btngroup { display: flex; align-items: center; gap: var(--spacing-md); }
+/* Button Type=Action text inside a Tile header — 16px label, no box. */
+.rmx-actiontext {
+  all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: var(--spacing-xxs);
+  font: var(--type-label-m-regular); color: var(--text-link);
+}
+.rmx-actiontext:hover .rmx-btn__label { text-decoration: underline; }
+.rmx-actiontext > .rmx-icon, .rmx-iconbtn > .rmx-icon { color: var(--icon-primary); }
+.rmx-iconbtn { all: unset; cursor: pointer; display: inline-flex; width: 20px; height: 20px; }
+.rmx-tile__body--flush { padding: 0; gap: 0; }
+.rmx-tile__body--form { gap: var(--spacing-md); }
+.rmx-tile__empty { flex: 1; }
+/* _Dashboard Tile Totals — Style=BG Fill #f5f8fa, padding xs/md, Label/S */
+.rmx-tile__totals {
+  display: flex; align-items: center; gap: var(--spacing-md); margin-top: auto;
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--container-tertiary); font: var(--type-label-s-regular); color: var(--text-onlight);
+}
+.rmx-tile__totals--center { justify-content: center; }
+.rmx-tile__totals--end { justify-content: flex-end; }
+.rmx-tile__totals--rule { border-top: 1px solid var(--border-primary); }
+.rmx-tile__totals strong { font: var(--type-label-s-semibold); color: var(--text-primary); }
+
+/* Read-only field (Input Field Style=Read-only) — value sits in a 36px row. */
+.rmx-ro__label { font: var(--type-label-m-regular); }
+.rmx-ro__value { font: var(--type-label-m-semibold); min-height: 36px; display: flex; align-items: center; }
+.rmx-ro__value--link { color: var(--text-link); }
+.rmx-ro--compact .rmx-ro__value { min-height: 0; padding-top: var(--spacing-xs); }
+
+/* Register Header Style=Table inside a Tile: Label/S/Medium text-secondary. */
+.rmx-register--table th { font: var(--type-label-s-medium); letter-spacing: 1.134px; color: var(--text-secondary); height: 32px; }
+.rmx-register td { font: var(--type-label-m-regular); }
+.rmx-register tr[data-striped="true"] td { background: var(--component-register-row-striped); }
+.rmx-register td.rmx-cell--label { color: var(--text-primary); }
+.rmx-register td.rmx-cell--num, .rmx-register th.rmx-cell--num { text-align: right; }
+.rmx-register td.rmx-cell--icon, .rmx-register th.rmx-cell--icon { width: 40px; text-align: center; padding: 0 var(--spacing-xs); }
+.rmx-register td.rmx-cell--icon .rmx-icon { color: var(--icon-primary); vertical-align: middle; }
+.rmx-register td.rmx-cell--block { width: 32px; padding: 0 var(--spacing-xs); }
+.rmx-register td.rmx-cell--input { padding: 2px var(--spacing-xs); height: 44px; }
+.rmx-colorblock { width: 10px; background: var(--icon-primary); }
+.rmx-colorblock--tenant { background: var(--icon-disabled); }
+
+/* ---------- Contact card (Contacts tile) ---------- */
+.rmx-contact { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-md); }
+.rmx-contact__who { display: flex; align-items: center; gap: var(--spacing-xs); }
+.rmx-contact__name { font: var(--type-label-l-semibold); color: var(--text-secondary); }
+.rmx-contact__type { font: var(--type-label-m-italic); color: var(--text-secondary); }
+.rmx-contact__phone { display: inline-flex; align-items: center; gap: var(--spacing-xs); font: var(--type-label-m-regular); color: var(--text-secondary); }
+.rmx-contact__phone > .rmx-icon { color: var(--icon-primary); }
+.rmx-subhead { font: var(--type-label-m-semibold); color: var(--text-secondary); }
+.rmx-infobox { display: flex; flex-direction: column; gap: var(--spacing-xs); padding: var(--spacing-sm); border: 1px solid var(--border-primary); }
+.rmx-infobox .rmx-ro__value { min-height: 0; }
+
+/* ---------- Pet card (Pets tile) ---------- */
+.rmx-pet { display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-md); }
+.rmx-addphoto {
+  flex: none; width: 100px; height: 100px; border-radius: var(--radius-round);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--background-ui-secondary); color: var(--icon-tertiary);
+}
+.rmx-addphoto > .rmx-icon { width: 42px; height: 42px; }
+.rmx-pet__details { display: flex; flex-direction: column; gap: var(--spacing-md); }
+.rmx-pet__name { font: var(--type-heading-s-regular); color: var(--text-link); }
+.rmx-pet__facts { display: flex; gap: var(--spacing-md); }
+.rmx-pet__facts > span { display: inline-flex; align-items: center; gap: var(--spacing-xs); font: var(--type-label-m-regular); color: var(--text-secondary); }
+.rmx-pet__facts .rmx-icon { color: var(--icon-primary); }
+.rmx-pet__grid { padding: 0 var(--spacing-sm); }
+.rmx-pet__grid td { border-color: var(--border-primary); }
+
+/* ---------- Form controls the system stylesheet does not draw ---------- */
+.rmx-form { display: flex; flex-direction: column; gap: var(--spacing-md); }
+.rmx-form__row { display: flex; gap: var(--spacing-md); align-items: flex-end; }
+.rmx-form__row--tight { gap: var(--spacing-xs); }
+.rmx-form__row > .rmx-field { flex: 1 1 0; min-width: 0; }
+.rmx-field { width: auto; }
+.rmx-field > .rmx-field__label { font: var(--type-label-m-regular); }
+.rmx-field__box { font: var(--type-label-m-regular); }
+.rmx-field__box > .rmx-field__value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rmx-field__box > .rmx-icon { color: var(--icon-tertiary); }
+.rmx-field__box > .rmx-icon--lead { color: var(--icon-primary); }
+.rmx-field__box > .rmx-placeholder { font: var(--type-label-m-italic); flex: 1; }
+.rmx-field__box > input::placeholder { font: var(--type-label-m-italic); }
+[data-rmx-dropdown] > .rmx-field__box { cursor: pointer; width: 100%; }
+/* State=Disabled */
+.rmx-field--disabled .rmx-field__box { background: var(--background-ui-secondary); color: var(--text-disabled); }
+.rmx-field--disabled .rmx-field__box > .rmx-icon { color: var(--icon-disabled); }
+/* Spilt CTA?=On (sic) — box + a 28px icon segment sharing a border. */
+.rmx-field__split { display: flex; }
+.rmx-field__split > .rmx-field__box { flex: 1; min-width: 0; border-radius: var(--radius-sm) 0 0 var(--radius-sm); border-right: 0; }
+.rmx-field__cta {
+  flex: none; width: 28px; height: 36px; display: flex; align-items: center; justify-content: center;
+  background: var(--component-input-default); border: 1px solid var(--border-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0; color: var(--icon-tertiary);
+}
+/* Input Field Style=Register — the blue-labelled filter above a register. */
+.rmx-field--filter .rmx-field__box { background: var(--component-input-secondary); border-color: var(--border-secondary); }
+/* Icon-only primary button (Button Type=Primary, icon, 36x36) */
+.rmx-btn--icon { width: 36px; padding: 0; flex: none; }
+.rmx-btn--icon .rmx-icon { color: var(--text-inverse); }
+.rmx-btn .rmx-icon { color: inherit; }
+/* Text Box — label row (Paragraph/S) + 12/8 padded box. */
+.rmx-textbox { display: flex; flex-direction: column; gap: var(--spacing-xxs); }
+.rmx-textbox__label { display: flex; align-items: center; justify-content: space-between; font: var(--type-paragraph-s-regular); color: var(--text-primary); }
+.rmx-textbox__label > .rmx-icon, .rmx-textbox__label .rmx-actiontext .rmx-icon { color: var(--icon-primary); }
+.rmx-textbox__box {
+  min-height: 116px; padding: var(--spacing-xs) var(--spacing-sm);
+  background: var(--component-input-default); border: 1px solid var(--border-primary); border-radius: var(--radius-sm);
+  font: var(--type-paragraph-s-regular); color: var(--text-secondary); white-space: pre-line;
+}
+.rmx-textbox__box:focus { outline: none; border-color: var(--border-secondary); }
+.rmx-check { font: var(--type-paragraph-s-regular); color: var(--text-primary); }
+.rmx-check__box > svg { width: 16px; height: 16px; }
+.rmx-check[data-checked="false"] .rmx-check__box > svg { display: none; }
+.rmx-checkcols { display: flex; gap: var(--spacing-md); }
+.rmx-checkcols > div { flex: 1; display: flex; flex-direction: column; gap: var(--spacing-xl); }
+.rmx-controls { display: flex; align-items: center; justify-content: space-between; }
+.rmx-radio { display: inline-flex; align-items: center; gap: var(--spacing-xs); cursor: pointer; font: var(--type-label-m-regular); color: var(--text-primary); }
+.rmx-radio[aria-disabled="true"] { color: var(--text-disabled); cursor: default; }
+.rmx-radio[aria-disabled="true"] .rmx-radio__dot { border-color: var(--border-primary); }
+.rmx-radiorow { display: flex; gap: var(--spacing-md); padding: var(--spacing-xs) 0; }
+/* Toggle Switch Size=Small — two 66x24 segments. */
+.rmx-toggleswitch { display: inline-flex; }
+.rmx-toggleswitch > button {
+  all: unset; cursor: pointer; width: 66px; height: 24px; box-sizing: border-box; text-align: center;
+  background: var(--container-primary); border: 1px solid var(--border-primary);
+  font: var(--type-label-s-regular); color: var(--text-primary);
+}
+.rmx-toggleswitch > button:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.rmx-toggleswitch > button:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; border-left: 0; }
+.rmx-toggleswitch > button[aria-pressed="true"] {
+  background: var(--background-secondary-button-hover); border-color: var(--border-secondary);
+  font: var(--type-label-s-semibold);
+}
+.rmx-toggleswitch > button[aria-pressed="true"] + button { border-left: 0; }
+/* Toggle Slider — 36x20 track, 16px handle carrying a remove/check glyph. */
+.rmx-toggleslider { all: unset; cursor: pointer; position: relative; width: 36px; height: 20px; border-radius: var(--radius-lg); background: var(--slide-toggle-unselected-track); flex: none; }
+.rmx-toggleslider > span {
+  position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: var(--radius-round);
+  background: var(--container-primary); color: var(--text-primary); display: flex; align-items: center; justify-content: center;
+}
+.rmx-toggleslider > span > .rmx-icon { width: 16px; height: 16px; }
+.rmx-toggleslider[aria-checked="true"] { background: var(--background-brand-primary-disabled); }
+.rmx-toggleslider[aria-checked="true"] > span { left: 18px; color: var(--icon-primary); }
+/* Continuous Slider Style=Interest — orange track and 16px handle. */
+.rmx-slider { display: flex; flex-direction: column; gap: var(--spacing-xxs); padding-bottom: var(--spacing-xs); }
+.rmx-slider__label { font: var(--type-label-m-regular); color: var(--text-primary); }
+.rmx-slider__track { display: flex; align-items: center; gap: var(--spacing-xs); font: var(--type-label-m-regular); color: var(--text-secondary); }
+.rmx-slider__track > input {
+  flex: 1; margin: 0 var(--spacing-xs); accent-color: var(--icon-attention); height: 16px;
+}
+.rmx-status { display: flex; align-items: center; gap: var(--spacing-xl); font: var(--type-label-m-regular); color: var(--text-primary); }
+.rmx-status > :last-child { color: var(--text-secondary); }
+.rmx-btn--wide { width: 114px; }
+/* Security deposit row (General tile on Prospect) */
+.rmx-depositrow { display: flex; align-items: center; gap: var(--spacing-xs); }
+.rmx-depositrow > .rmx-ro__value { flex: 1; font: var(--type-label-m-regular); }
+.rmx-depositrow > .rmx-btn { flex: 1; }
+
+/* ---------- Screening tile ---------- */
+.rmx-screen { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.rmx-screen__head { font: var(--type-paragraph-l-medium); color: var(--text-secondary); }
+.rmx-screen__card { border: 1px solid var(--border-primary); }
+.rmx-screen__card > div { display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-xs); padding: var(--spacing-xs); font: var(--type-label-m-regular); color: var(--text-secondary); }
+.rmx-screen__card > div + div { border-top: 1px solid var(--border-primary); }
+.rmx-screen__card .rmx-text--link { font: var(--type-label-m-regular); }
+.rmx-screen__stack { display: flex; flex-direction: column; gap: var(--spacing-xxs); }
+
+/* ---------- Attachments ---------- */
+.rmx-attach { display: flex; flex-direction: column; gap: var(--spacing-xxs); }
+.rmx-attach__label { font: var(--type-label-m-regular); color: var(--text-primary); }
+.rmx-attach__box { padding: var(--spacing-xs); background: var(--container-primary); border: 1px solid var(--border-primary); border-radius: var(--radius-sm); }
+.rmx-attach__drop {
+  min-height: 104px; display: flex; align-items: center; justify-content: center; gap: var(--spacing-xs);
+  background: var(--component-input-default); border: 1px dashed var(--border-primary); border-radius: 2px;
+}
+.rmx-attach__drop > i { width: 1px; height: 20px; background: var(--border-primary); }
+.rmx-attach__drop .rmx-icon { width: 16px; height: 16px; }
+.rmx-attach--inline {
+  display: flex; align-items: center; justify-content: space-between; height: 36px; padding: 0 var(--spacing-xs);
+  background: var(--component-input-default); border: 1px solid var(--border-primary); border-radius: var(--radius-sm);
+}
+.rmx-attach--inline > span { display: inline-flex; align-items: center; gap: var(--spacing-sm); }
+
+/* ---------- Container (form section inside a Tile) ---------- */
+.rmx-container { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.rmx-container__subtitle { font: var(--type-label-m-regular); color: var(--text-primary); }
+
+/* ---------- Register page ---------- */
+.rmx-registerhead { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--spacing-sm); }
+.rmx-registerhead__lead { display: flex; align-items: flex-end; gap: var(--spacing-xs); }
+.rmx-registerhead .rmx-field { width: 248px; }
+.rmx-registerbox {
+  flex: 1; max-width: 100%; min-width: 0; min-height: 0; overflow: auto;
+  background: var(--component-register-row-default);
+  border: 1px solid var(--icon-disabled); border-radius: var(--radius-sm);
+}
+.rmx-registerbox .rmx-register th { border-right: 1px solid var(--container-primary); }
+.rmx-registerbox .rmx-register th:last-child { border-right: 0; }
+.rmx-register th .rmx-icon { color: var(--text-inverse); vertical-align: middle; }
+.rmx-page--register .rmx-register__totals { font: var(--type-label-s-regular); padding-top: 0; }
+.rmx-page--register { min-height: calc(100vh - 88px); }
+.rmx-register .rmx-lozenge { vertical-align: middle; }
+
+/* ---------- Add Wizard (Move In) ---------- */
+.rmx-wizard {
+  display: flex; flex-direction: column; width: 1510px; max-width: calc(100vw - 48px);
+  background: var(--container-primary);
+}
+.rmx-wizard--open {
+  /* Sits 16px below centre (Izabella, 2026-09-24) */
+  position: fixed; z-index: 950; top: 50%; left: 50%; transform: translate(-50%, calc(-50% + var(--spacing-md)));
+  height: calc(100vh - 96px); overflow: hidden;
+}
+.rmx-wizard__main { flex: 1; min-height: 0; display: flex; border: 1px solid var(--border-primary); border-bottom: 0; }
+.rmx-wizard__nav {
+  width: 220px; flex: none; display: flex; flex-direction: column; justify-content: space-between; align-items: center;
+  padding: 0 0 var(--spacing-2xl) var(--spacing-md); background: var(--container-secondary-dark); overflow: hidden;
+}
+.rmx-wizard__navtop { align-self: stretch; }
+.rmx-wizard__title {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--spacing-xl) var(--spacing-md) var(--spacing-xl) 0;
+  font: var(--type-heading-s-regular); color: var(--text-ondark);
+}
+.rmx-wizard__title > button { all: unset; cursor: pointer; display: flex; color: var(--icon-primary); }
+.rmx-wizard__items { display: flex; flex-direction: column; }
+/* _Add Wizard List Item — Selected=On is a white pill bleeding off the rail,
+   rounded left 8px, with the two 18px Ramp shapes above and below it. */
+.rmx-wizard__item {
+  all: unset; cursor: pointer; position: relative; height: 42px; box-sizing: border-box;
+  display: flex; align-items: center; padding: var(--spacing-xs);
+  font: var(--type-label-m-regular); color: var(--text-ondark);
+}
+.rmx-wizard__item[aria-current="step"] {
+  background: var(--container-primary); color: var(--text-secondary);
+  border-radius: var(--spacing-xs) 0 0 var(--spacing-xs);
+}
+.rmx-wizard__ramp { display: none; position: absolute; right: 0; width: 18px; height: 18px; color: var(--container-primary); }
+.rmx-wizard__item[aria-current="step"] .rmx-wizard__ramp { display: block; }
+.rmx-wizard__ramp--top { top: -18px; }
+.rmx-wizard__ramp--bottom { bottom: -18px; transform: scaleY(-1); }
+.rmx-wizard__logo { width: 96px; height: 96px; color: var(--component-command-launch); }
+.rmx-wizard__canvas {
+  flex: 1; min-width: 0; overflow: auto; scroll-behavior: smooth;
+  padding: var(--spacing-2xl) var(--spacing-5xl);
+  display: flex; flex-direction: column; gap: var(--spacing-xl);
+  border-left: 1px solid var(--border-primary);
+}
+.rmx-wizard .rmx-overlay__footer { justify-content: flex-end; }
+
+/* Contacts tile inside the wizard — Add Photo 120px with the + badge. */
+.rmx-photoadd {
+  position: relative; flex: none; width: 120px; height: 120px; border-radius: var(--radius-round);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--background-ui-secondary); color: var(--icon-primary);
+}
+.rmx-photoadd > .rmx-icon { width: 42px; height: 42px; }
+.rmx-photoadd > span {
+  position: absolute; right: 0; bottom: 0; width: 32px; height: 32px; border-radius: var(--radius-round);
+  background: var(--icon-primary); color: var(--text-inverse); display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--container-primary);
+}
+.rmx-contactform { flex: 1; display: flex; flex-direction: column; gap: var(--spacing-xs); min-width: 0; }
+.rmx-contactform > .rmx-form__row { gap: var(--spacing-xs); }
+
+/* proto.css marks the chosen dropdown option 500, which is not a named
+   style; Label/M/SemiBold is the nearest. Raised in PROTOTYPE.md. */
+.rmx-menu > [data-value][aria-selected="true"] { font: var(--type-label-m-semibold); }
+
+/* Responsive — follows responsive.css conventions */
+@media (max-width: 1023px) {
+  .rmx-scoreboard__content { flex-direction: column; align-items: flex-start; }
+  .rmx-scoreboard__figures { align-items: flex-start; }
+  .rmx-form__row, .rmx-checkcols, .rmx-contact { flex-direction: column; align-items: stretch; }
+  .rmx-contextbar .rmx-ctxsearch, .rmx-contextbar .rmx-pager, .rmx-contextbar .rmx-filterbtn { display: none; }
+  .rmx-registerhead, .rmx-registerhead__lead { flex-wrap: wrap; }
+  .rmx-wizard__nav { display: none; }
+  .rmx-wizard__canvas { padding: var(--spacing-md); }
+}
+@media (max-width: 767px) {
+  .rmx-callout { flex-wrap: wrap; }
+  .rmx-callout__end { margin-left: 0; }
+  .rmx-registerhead__lead { flex-wrap: wrap; }
+  .rmx-scoreboard__row1, .rmx-scoreboard__row2 { gap: var(--spacing-md); }
+  .rmx-scoreboard__trail { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---------- Layout panels (Tenant detail: Tenant Standard Layout | Home) ---------- */
+.rmx-layoutpanel { display: flex; flex-direction: column; gap: var(--spacing-lg); }
+/* A tile spanning two of three columns: basis = one gap, so it lines up
+   with the three-across rows above it. */
+.rmx-tilerow > .rmx-tile.rmx-tile--span2 { flex: 2 1 var(--spacing-lg); }
+.rmx-field__label--split { display: flex; align-items: center; justify-content: space-between; }
+.rmx-field--check { justify-content: center; min-height: 56px; }
+.rmx-check[aria-disabled="true"] { color: var(--text-disabled); cursor: default; }
+.rmx-check[aria-disabled="true"] .rmx-check__box { opacity: .5; }
+.rmx-inline .rmx-ro__label { font: var(--type-label-m-regular); }
+@media (max-width: 1023px) { .rmx-tilerow > .rmx-tile.rmx-tile--span2 { flex: 1 1 auto; } }
+
+/* ================================================================
+   Tenant detail — navigation redesign ("Tenant Account Navigation –
+   Convert Overlays to Tabs", nju4pxa9Tg7GvCw8Hr95Qq, V1). Harvested
+   2026-09-23 from library components that post-date the skill's
+   inventory: Tenant Search List, _Action Bar - Right Icons,
+   _Menu Category Icons, _Action List, Tenant Tabs, Sidebar List.
+   ================================================================ */
+:root {
+  --border-quaternary: #13314c;               /* Border/border-quaternary */
+  --light-alpha-blue-20: rgba(0, 141, 213, .20); /* Light Alpha/Blue/20-500 — selected tenant row */
+}
+.rmx-tile__header--attention { border-bottom-color: var(--border-attention); }
+.rmx-tile__header--quaternary { border-bottom-color: var(--border-quaternary); }
+.rmx-text--success { color: var(--text-success); }
+.rmx-text--error { color: var(--text-error); }
+
+/* Shell: left Tenant Search List | page | right Action Bar */
+.rmx-tenantshell { display: flex; align-items: flex-start; min-height: calc(100vh - 88px); background: var(--background-ui-primary); }
+.rmx-page--tenant {
+  flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-xl) var(--spacing-md) var(--spacing-md);
+  background: var(--background-ui-primary);
+}
+.rmx-scoretabs { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.rmx-scorerow { display: flex; gap: var(--spacing-md); align-items: stretch; }
+.rmx-scorerow > .rmx-scoreboard { flex: 1; min-width: 0; }
+
+/* Tenant Search List — 300 wide, 1px border-secondary, padding md/md/xs/md, gap md */
+.rmx-sidenav {
+  position: sticky; top: var(--spacing-md); flex: none; width: 300px;
+  height: calc(100vh - 88px - 2 * var(--spacing-md)); margin: var(--spacing-md) 0 var(--spacing-md) var(--spacing-md);
+  display: flex; flex-direction: column; gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-xs);
+  background: var(--container-primary); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm);
+}
+.rmx-sidenav__top { display: flex; align-items: center; justify-content: space-between; }
+.rmx-sidenav__actions { display: flex; gap: var(--spacing-xs); margin-left: auto; margin-right: var(--spacing-xs); }
+.rmx-sidenav .rmx-iconbtn > .rmx-icon { color: var(--icon-primary); }
+.rmx-sidenav > .rmx-field__box > .rmx-icon:last-child { color: var(--icon-tertiary); }
+.rmx-tenantlist { flex: 1; min-height: 0; overflow: auto; border: 1px solid var(--border-primary); border-radius: var(--radius-sm); }
+.rmx-tenantlist__row {
+  display: flex; align-items: center; gap: var(--spacing-xs); height: 32px; padding-right: var(--spacing-md);
+  font: var(--type-label-m-regular); color: var(--text-secondary); cursor: pointer;
+}
+.rmx-tenantlist__row[aria-current="true"] { background: var(--light-alpha-blue-20); }
+.rmx-tenantlist__bar { flex: none; width: 10px; height: 32px; }
+.rmx-tenantlist__bar--success { background: var(--icon-success); }
+.rmx-tenantlist__bar--attention { background: var(--icon-attention); }
+.rmx-tenantlist__bar--brand { background: var(--icon-primary); }
+.rmx-tenantlist__code { width: 96px; flex: none; }
+.rmx-tenantlist__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rmx-sidenav__count { text-align: right; font: var(--type-label-s-regular); color: var(--text-disabled); }
+/* Lozenge State=error with the filled background the list uses */
+.rmx-lozenge--solid-error { background: var(--icon-error); color: var(--text-ondark); padding: var(--spacing-xxs) var(--spacing-xs); }
+.rmx-lozenge--solid-error::before { display: none; }
+/* Collapsed: a 36px arrow container sits beside the Scoreboard */
+.rmx-sidenav__open {
+  all: unset; box-sizing: border-box; cursor: pointer; display: none; align-items: center; justify-content: center;
+  width: 36px; flex: none; padding: var(--spacing-md) var(--spacing-xs);
+  background: var(--container-primary); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm); color: var(--icon-primary);
+}
+[data-nav-collapsed] .rmx-sidenav { display: none; }
+[data-nav-collapsed] .rmx-sidenav__open { display: flex; }
+
+/* Tenant Tabs — Tabs Selected=True/False, padding md, orange selected stroke (as in the mock) */
+.rmx-tabrow--tenant { border-bottom: 1px solid var(--border-primary); overflow-x: auto; }
+.rmx-tabrow--tenant .rmx-tab { padding: var(--spacing-md); border-bottom-width: 0; flex: none; white-space: nowrap; }
+.rmx-tabrow--tenant .rmx-tab[aria-selected="true"] { border-bottom-width: 2px; }
+
+/* _Action Bar - Right Icons — Collapsed 52 wide / Expanded 300 wide */
+.rmx-actionrail {
+  position: sticky; top: var(--spacing-md); flex: none; width: 52px;
+  height: calc(100vh - 88px - 2 * var(--spacing-md)); margin: var(--spacing-md) var(--spacing-md) var(--spacing-md) 0;
+  display: flex; flex-direction: column; align-items: center; gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-xs);
+  background: var(--container-primary); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm);
+}
+.rmx-actionrail__title { display: none; align-items: center; justify-content: space-between; align-self: stretch; padding: 0 var(--spacing-xs);
+  font: var(--type-label-l-medium); color: var(--text-secondary); }
+.rmx-actionrail__title .rmx-icon { color: var(--icon-primary); }
+.rmx-actionrail__expand .rmx-icon { color: var(--icon-tertiary); }
+.rmx-actionrail__search { width: 36px; padding: var(--spacing-xs); }
+.rmx-actionrail__search > input { display: none; }
+.rmx-actionrail__body { flex: 1; min-height: 0; display: flex; gap: var(--spacing-xs); align-self: stretch; justify-content: center; }
+.rmx-actionrail__lists, .rmx-actionrail__rule { display: none; }
+.rmx-actionrail__icons { display: flex; flex-direction: column; gap: var(--spacing-md); }
+.rmx-actionrail__icon {
+  all: unset; box-sizing: border-box; cursor: pointer; width: 36px; height: 36px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center; color: var(--text-secondary);
+}
+.rmx-actionrail__icon[aria-pressed="true"] { background: var(--light-alpha-blue-20); }   /* _Menu Icon Property 1=Selected: Light Alpha/Blue/20-500 */
+.rmx-actionrail[data-expanded] { width: 300px; align-items: stretch; }
+.rmx-actionrail[data-expanded] .rmx-actionrail__title { display: flex; }
+.rmx-actionrail[data-expanded] .rmx-actionrail__expand { display: none; }
+.rmx-actionrail[data-expanded] .rmx-actionrail__search { width: auto; }
+.rmx-actionrail[data-expanded] .rmx-actionrail__search > input { display: block; }
+.rmx-actionrail[data-expanded] .rmx-actionrail__lists { display: block; flex: 1; min-width: 0; overflow: auto; }
+.rmx-actionrail[data-expanded] .rmx-actionrail__rule { display: block; width: 1px; background: var(--border-primary); }
+/* _Action List — Label/L/Medium category, Label/M/Regular sub-heads with a rule, link actions */
+.rmx-actionrail__list { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.rmx-actionrail__list:not([hidden]) { display: flex; }
+.rmx-actionrail__cat { padding: 0 var(--spacing-xs); font: var(--type-label-l-medium); color: var(--text-secondary); margin-bottom: var(--spacing-xxs); }
+.rmx-actionrail__sub { display: flex; align-items: center; gap: var(--spacing-xs); padding: 0 var(--spacing-xs); margin-top: var(--spacing-xxs); font: var(--type-label-m-regular); color: var(--text-primary); }
+.rmx-actionrail__sub > i { flex: 1; height: 1px; background: var(--border-primary); }
+.rmx-actionrail__link { padding: 0 var(--spacing-xs); }
+
+/* Contact card (Tenants/Prospects - Single Contact) */
+.rmx-contactcard { display: flex; justify-content: space-between; gap: var(--spacing-md); }
+.rmx-contactcard__who { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.rmx-contactcard__name { display: inline-flex; align-items: center; gap: var(--spacing-xs); font: var(--type-paragraph-l-semibold); color: var(--text-secondary); }
+.rmx-contactcard__meta { font: var(--type-paragraph-s-italic); color: var(--text-primary); }
+.rmx-contactcard__reach { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.rmx-contactcard__reach > span, .rmx-contacthead__reach > span { display: inline-flex; align-items: center; gap: var(--spacing-xs); font: var(--type-paragraph-s-regular); color: var(--text-primary); }
+.rmx-contactcard__reach .rmx-icon, .rmx-contacthead__reach .rmx-icon { color: var(--icon-primary); }
+.rmx-infobox--grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--spacing-sm) var(--spacing-xl); padding: var(--spacing-md) var(--spacing-lg); border-radius: var(--radius-sm); }
+.rmx-infobox--grid .rmx-ro__value { min-height: 0; }
+.rmx-contacthead { display: flex; align-items: center; gap: var(--spacing-md); }
+.rmx-contacthead__info { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.rmx-contacthead__reach, .rmx-contacthead__checks { display: flex; gap: var(--spacing-xl); flex-wrap: wrap; }
+
+/* Grouped register rows (charge groups) */
+.rmx-register--grouped .rmx-grouprow td { background: var(--container-primary); }
+.rmx-grouprow__toggle { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: var(--spacing-xxs); font: var(--type-label-m-semibold); color: var(--text-secondary); }
+.rmx-grouprow__toggle[aria-expanded="false"] .rmx-icon { transform: rotate(-90deg); }
+.rmx-register--grouped tr[data-in-group]:nth-of-type(even) td { background: var(--background-ui-primary); }
+.rmx-cellblock { display: inline-flex; align-items: center; gap: var(--spacing-xs); }
+.rmx-cellblock > .rmx-colorblock { height: 32px; }
+.rmx-colorblock--property { background: var(--icon-primary); }
+.rmx-colorblock--tenant { background: var(--icon-success); }
+.rmx-register td .rmx-check { vertical-align: middle; }
+
+/* Sidebar List + Sidebar List Item (pets, leases, contacts) */
+.rmx-sidebarsplit { display: flex; align-items: stretch; }
+.rmx-sidebarsplit--page { gap: var(--spacing-lg); align-items: flex-start; }
+.rmx-sidebarsplit__detail { flex: 1; min-width: 0; display: flex; gap: var(--spacing-xl); padding: var(--spacing-lg); }
+.rmx-sidebarlist { width: 264px; flex: none; display: flex; flex-direction: column; background: var(--container-primary); border-right: 1px solid var(--border-primary); }
+.rmx-sidebarlist--panel { border: 1px solid var(--border-primary); border-radius: var(--radius-sm); min-height: 560px; }
+.rmx-sidebarlist__head { padding: var(--spacing-sm) var(--spacing-xs); border-bottom: 1px solid var(--border-primary); }
+.rmx-sidebarlist__items { flex: 1; }
+.rmx-sidebarlist__item {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--spacing-xs);
+  min-height: 36px; padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--spacing-sm);
+  font: var(--type-label-m-regular); color: var(--text-secondary); border-left: 4px solid transparent; cursor: pointer;
+}
+.rmx-sidebarlist__item[aria-current="true"] { background: var(--component-row-selected); border-left-color: var(--border-secondary); }
+.rmx-sidebarlist__item--child { min-height: 32px; padding-left: var(--spacing-3xl); }
+.rmx-sidebarlist__item strong { font: var(--type-label-m-semibold); }
+.rmx-sidebarlist__lead, .rmx-sidebarlist__trail { display: inline-flex; align-items: center; gap: var(--spacing-xs); }
+.rmx-sidebarlist__item .rmx-icon { color: var(--icon-primary); }
+.rmx-sidebarlist__lead .rmx-icon { color: var(--icon-tertiary); }
+.rmx-sidebarlist__foot { padding: var(--spacing-xs) var(--spacing-md); }
+.rmx-photoadd--100 { width: 100px; height: 100px; }
+.rmx-photoadd--100 > span { width: 30px; height: 30px; }
+
+/* Filter rows above a tab register */
+.rmx-controls--start { justify-content: flex-start; gap: var(--spacing-md); flex-wrap: wrap; }
+.rmx-daterange { display: flex; }
+.rmx-daterange > .rmx-field__box { width: 144px; border-radius: 0; border-right: 0; background: var(--component-input-secondary); border-color: var(--border-secondary); }
+.rmx-daterange > .rmx-field__box:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.rmx-daterange > .rmx-field__cta { background: var(--component-input-secondary); border-color: var(--border-secondary); }
+.rmx-registerhead .rmx-field.rmx-field--filter:has(.rmx-daterange) { width: auto; }
+.rmx-check--filter { align-self: center; padding-top: var(--spacing-lg); color: var(--text-label); }
+.rmx-field__cta--brand { background: var(--background-primary-button); border-color: var(--background-primary-button); color: var(--text-inverse); cursor: pointer; }
+.rmx-registerbox--tab { flex: none; min-height: 480px; }
+.rmx-registerbox--short { min-height: 240px; }
+.rmx-register__totals--spread { display: flex; justify-content: flex-end; gap: var(--spacing-2xl); }
+.rmx-register td.rmx-cell--udfname { width: 50%; }
+.rmx-field__box--cell { height: 32px; }
+.rmx-attach__file { display: flex; align-items: center; justify-content: space-between; padding: var(--spacing-xxs) var(--spacing-xs); margin-bottom: var(--spacing-xs); background: var(--component-input-default); }
+.rmx-attach__file > span { display: inline-flex; gap: var(--spacing-sm); color: var(--icon-primary); }
+.rmx-attach__drop--tall { min-height: 200px; }
+.rmx-overlay__footer--inline { border: 1px solid var(--border-primary); border-radius: var(--radius-sm); }
+
+/* The tenant list starts collapsed (data-nav-collapsed on the shell).
+   data-nav-hidden removes it and its arrow entirely — hidden at the
+   designer's request (2026-09-23) until further notice. Delete the
+   attribute on .rmx-tenantshell to bring it back. */
+[data-nav-hidden] .rmx-sidenav, [data-nav-hidden] .rmx-sidenav__open { display: none !important; }
+@media (max-width: 1023px) {
+  .rmx-tenantshell { display: block; }
+  .rmx-sidenav, .rmx-sidenav__open, .rmx-actionrail { display: none !important; }
+  .rmx-sidebarsplit, .rmx-sidebarsplit__detail, .rmx-contactcard, .rmx-contacthead { flex-direction: column; align-items: stretch; }
+  .rmx-sidebarlist { width: auto; }
+  .rmx-infobox--grid { grid-template-columns: 1fr; }
+  .rmx-registerbox--tab { max-width: 100%; }
+  .rmx-page--tenant { padding: var(--spacing-md); }
+}
+/* Emphasis inside registers uses the named SemiBold style, not browser bold */
+.rmx-register strong, .rmx-sidebarlist strong { font: var(--type-label-m-semibold); }
+
+/* Home marker glyph is a provisional stand-in; see PROTOTYPE.md. The Home summary Callout uses the standard
+   blue Callout border and icon (Izabella, 2026-09-24; it was maroon), with Primary / Secondary buttons. */
+.rmx-callout--home { padding-block: var(--spacing-xs); }
+.rmx-callout--home .rmx-tile__btngroup { gap: var(--spacing-xs); }
+
+/* _Action List / _Action Label (navigation file 2234:21121): category title
+   Label/L/Medium, labels Label/M/Regular navy with padding 6 and an optional
+   Label/M/Italic note (e.g. "<New Email>  Send Email"). */
+.rmx-actionrail[data-expanded] .rmx-actionrail__lists { padding-left: var(--spacing-xs); }
+.rmx-actionrail__list { gap: var(--spacing-xs); }
+.rmx-actionrail__cat { padding: 0; margin-bottom: var(--spacing-xs); }
+.rmx-actionrail__link {
+  all: unset; cursor: pointer; display: flex; align-items: baseline; gap: var(--spacing-xxs); padding: 6px;
+  font: var(--type-label-m-regular); color: var(--text-secondary); border-radius: var(--radius-sm);
+}
+.rmx-actionrail__link:hover .rmx-btn__label { text-decoration: underline; }
+.rmx-actionrail__link > em { font: var(--type-label-m-italic); color: var(--text-disabled); }
+
+/* Prospect register colour blocks (Cell Content Type=Color Block) */
+.rmx-register td.rmx-cell--block .rmx-colorblock, .rmx-register th.rmx-cell--block { width: 10px; }
+.rmx-register td.rmx-cell--block { width: 32px; padding: 0 var(--spacing-xs); }
+.rmx-register td.rmx-cell--block .rmx-colorblock { display: block; height: 36px; }
+.rmx-colorblock--brand { background: var(--icon-primary); }
+.rmx-colorblock--notice { background: var(--icon-notice); }
+.rmx-colorblock--tertiary { background: var(--icon-tertiary); }
+.rmx-colorblock--success { background: var(--icon-success); }
+.rmx-colorblock--error { background: var(--icon-error); }
+/* Charlie Apegian's row: same colour as the bar on his Scoreboard (Border/border-scoreboard) (Izabella, 2026-09-24) */
+.rmx-colorblock--scoreboard { background: var(--border-scoreboard); }
+.rmx-register tr[data-href] { cursor: pointer; }
+/* The cursor never turns into a question mark (Izabella, 2026-09-24). responsive.css (foundation)
+   sets cursor: help on truncated cells; inherit instead, so only Charlie's row shows the pointer. */
+.rmx-register td[title]:hover { cursor: inherit; }
+/* Real links in register cells (Homes register: Lot 101) look like the other link-styled cells: no underline until hover (Izabella, 2026-09-24) */
+.rmx-register a.rmx-text--link:not(:hover) { text-decoration: none; }
+/* Wide filter rows (Prospect register) wrap before they overflow */
+@media (max-width: 1599px) { .rmx-registerhead, .rmx-registerhead__lead { flex-wrap: wrap; } }
+
+/* Register pages fit the viewport: the register scrolls inside its box and the
+   count sits under it, always visible (designer, 2026-09-23). */
+.rmx-page--register { height: calc(100vh - 88px); min-height: 0; overflow: hidden; }
+.rmx-page--register > .rmx-registerbox { flex: 1 1 0; min-height: 0; overflow: auto; }
+.rmx-page--register > .rmx-register__totals { flex: none; }
+.rmx-registerbox .rmx-register thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Move-in wizard: no light/gray frame around it (designer, 2026-09-23) —
+   the navy rail and white canvas meet the scrim directly. */
+.rmx-overlay.rmx-wizard { border: 0; }
+.rmx-wizard__main { border: 0; }
+.rmx-wizard__canvas { border-left: 0; }
+
+/* Leased Items button + menu (Move-in wizard, Lease tile) */
+.rmx-menuwrap { position: relative; flex: none; }
+.rmx-menu--end { left: auto; right: 0; min-width: 160px; }
+.rmx-menu > button[data-value] { font: var(--type-label-m-regular); }
+
+/* ---------- Unit detail ---------- */
+/* Linked scoreboard items keep the Scoreboard Item navy text (designer, 2026-09-23); they still navigate, underlining on hover. */
+a.rmx-sbitem--link { color: var(--text-secondary); text-decoration: none; }
+a.rmx-sbitem--link:hover { text-decoration: underline; }
+/* Images tile — _Image Content: chevrons either side, categories with a rule,
+   155x145 slots with a remove badge. Slots are empty (no photos in the prototype). */
+.rmx-imagestrip { display: flex; align-items: center; gap: var(--spacing-md); }
+.rmx-imagestrip__nav .rmx-icon { color: var(--icon-tertiary); }
+.rmx-imagestrip__cats { flex: 1; min-width: 0; display: flex; gap: var(--spacing-md); overflow: hidden; }
+.rmx-imagecat { display: flex; flex-direction: column; gap: var(--spacing-xs); flex: none; }
+.rmx-imagecat__head { display: flex; align-items: center; gap: var(--spacing-xs); font: var(--type-label-s-regular); color: var(--text-secondary); }
+.rmx-imagecat__head > i { flex: 1; height: 1px; background: var(--background-ui-secondary); }
+.rmx-imagecat__row { display: flex; gap: var(--spacing-md); padding-right: var(--spacing-md); }
+.rmx-imageslot { position: relative; width: 155px; height: 145px; flex: none; background: var(--background-ui-secondary); border: 1px solid var(--border-primary); }
+.rmx-imageslot > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.rmx-imageslot__remove { all: unset; cursor: pointer; position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; border-radius: var(--radius-round); background: var(--container-primary); color: var(--icon-primary); display: flex; }
+@media (max-width: 1023px) { .rmx-imagestrip__cats { overflow-x: auto; } }
+a.rmx-ro__value { text-decoration: none; }
+a.rmx-ro__value:hover { text-decoration: underline; }
+
+/* ---------- Property/User Selector (register filters) ----------
+   RMX Components, Pop Ups & Overlays, node 293:7049, Style=Dropdown. Replaces the
+   single-select Status / Property filter menus (Izabella, 2026-09-24).
+   Behaviour in assets/home-selector.js. */
+.rmx-selectorwrap { position: relative; }
+.rmx-selectorwrap > .rmx-field__box { cursor: pointer; width: 100%; }
+.rmx-selectorwrap[data-open="true"] > .rmx-field__box > .rmx-icon { transform: rotate(180deg); }
+.rmx-selector {
+  position: absolute; top: calc(100% + var(--spacing-xxs)); left: 0; z-index: 800;
+  width: 280px; display: flex; flex-direction: column;
+  background: var(--container-primary); border-radius: var(--radius-sm);
+  /* dropshadow-md */
+  box-shadow: 0 -2px 10px rgba(76,76,76,.08), 0 4px 5px rgba(76,76,76,.1), 1px 2px 6px rgba(76,76,76,.1);
+}
+.rmx-selector[hidden] { display: none; }
+.rmx-selector__header {
+  display: flex; align-items: center; gap: var(--spacing-md); padding: var(--spacing-xs);
+  border: 1px solid var(--border-primary); border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+.rmx-selector .rmx-field__box { background: var(--component-input-default); border-color: var(--border-primary); }
+.rmx-selector .rmx-field__box:focus-within { border-color: var(--border-secondary); }
+.rmx-selector__search { flex: 1; min-width: 0; }
+.rmx-selector__list {
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--spacing-md);
+  max-height: 200px; overflow-x: clip; overflow-y: auto;
+  padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xl) var(--spacing-xs);
+  border-left: 1px solid var(--border-primary); border-right: 1px solid var(--border-primary);
+  scrollbar-width: thin; scrollbar-color: var(--icon-disabled) transparent;
+}
+.rmx-selector__list .rmx-check[hidden] { display: none; }
+.rmx-selector__footer {
+  display: flex; flex-direction: column; gap: var(--spacing-xs); padding: var(--spacing-xs);
+  border: 1px solid var(--border-primary); border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+.rmx-selector__group { display: flex; flex-direction: column; gap: var(--spacing-sm); width: 100%; }
+.rmx-selector__group .rmx-field { width: 100%; }
+.rmx-selector__rule { width: 100%; height: 0; margin: 0; border: 0; border-top: 1px solid var(--border-primary); }
+.rmx-selector__summary {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  font: var(--type-paragraph-s-regular); color: var(--text-primary);
+}
+.rmx-selector__clear { all: unset; cursor: pointer; font: var(--type-label-m-regular); color: var(--text-link); border-radius: var(--radius-sm); }
+.rmx-selector__clear:hover { text-decoration: underline; }
+
+/* ---------- Status filter cards (above a register) ----------
+   From Meter Exception Reasons – Approval Workflow 1.0 (Figma mUHxMSEt4VN4UN9CKMVriD,
+   "Approval Status Filters", node 3964:45882). Not an RMX library component (Izabella, 2026-09-24).
+   One card per status: 4px colour bar, label, live count. Click to filter; the selected card
+   takes its status colour as its border and shows a close icon. Behaviour in home-selector.js. */
+.rmx-statusfilters { display: flex; gap: var(--spacing-md); }
+.rmx-statusfilter {
+  all: unset; box-sizing: border-box; cursor: pointer;
+  flex: 1 0 0; min-width: 0; height: 62px; display: flex; align-items: center; gap: var(--spacing-sm);
+  padding: 0 var(--spacing-xs) 0 0; overflow: hidden;
+  background: var(--background-card); border: 1px solid var(--border-primary); border-radius: var(--radius-sm);
+  box-shadow: 0 4px 6px rgba(0,0,0,.04);   /* dropshadow-xs */
+}
+.rmx-statusfilter:focus-visible { outline: 2px solid var(--border-secondary); outline-offset: 1px; }
+.rmx-statusfilter__bar { align-self: stretch; width: 4px; flex: none; background: var(--rmx-status, var(--icon-tertiary)); }
+.rmx-statusfilter__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--spacing-xxs); }
+.rmx-statusfilter__label { font: var(--type-paragraph-s-regular); color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rmx-statusfilter__count { font: var(--type-heading-s-semibold); color: var(--text-secondary); }
+.rmx-statusfilter__close { align-self: flex-start; margin-top: var(--spacing-xs); color: var(--text-secondary); }
+.rmx-statusfilter:not([aria-pressed="true"]) .rmx-statusfilter__close { display: none; }
+.rmx-statusfilter[aria-pressed="true"] { border-color: var(--rmx-status, var(--icon-tertiary)); }
+.rmx-statusfilter--success { --rmx-status: var(--icon-success); }
+.rmx-statusfilter--caution { --rmx-status: var(--icon-notice); }
+.rmx-statusfilter--brand   { --rmx-status: var(--icon-brand); }
+.rmx-statusfilter--error   { --rmx-status: var(--icon-error); }
+@media (max-width: 767px) { .rmx-statusfilters { flex-wrap: wrap; } .rmx-statusfilter { flex-basis: calc(50% - var(--spacing-md) / 2); } }
+
+/* ---------- Quiet register rows: Homes, Tenant, Prospect registers (Izabella, 2026-09-24) ----------
+   No blue text in the rows: link-styled cells (Home, Unit) take the plain cell navy; the
+   row kabob stays RMX blue. Rows get a hover tint, which RMX registers do not have
+   (Emma, 2026-09-10) -- a deliberate deviation, listed in PROTOTYPE.md. */
+.rmx-register--quiet tbody .rmx-text--link { color: var(--text-secondary); }
+.rmx-register--quiet tbody tr:hover > td { background: var(--component-register-row-hover); }
+
+/* Open dropdowns flip only their trailing chevron. proto.css (foundation) rotates every icon in the
+   trigger, which flipped the leading search icon on Property / Items (Izabella, 2026-09-24). */
+[data-rmx-dropdown][data-open="true"] [data-rmx-trigger] .rmx-icon:not(:last-child) { transform: none; }
+
+/* Property and Items lookups (Move-in wizard, Lease tiles): Input Field with the leading search icon and no
+   chevron, plus a Dropdown Menu panel that opens on focus (Izabella, 2026-09-24). */
+.rmx-lookup { position: relative; }
+.rmx-lookup > .rmx-field__box { cursor: text; }
+.rmx-lookup > .rmx-field__box > input { text-overflow: ellipsis; color: var(--text-secondary); }
+.rmx-lookup__menu { display: flex; flex-direction: column; min-width: max(100%, 200px); }
+.rmx-lookup__menu[hidden] { display: none; }
+.rmx-lookup__hint { padding: var(--spacing-xs) var(--spacing-sm); font: var(--type-label-m-italic); color: var(--text-disabled); white-space: nowrap; }
+.rmx-lookup__hint[hidden] { display: none; }
+
+/* Button spacing per the RMX library Button (node 373:2710): 8px frame padding, gap 0, and the label
+   carries its own 8px side padding. So a text-only button still has 16px sides, while an icon sits 8px
+   from the edge and 8px from the label. rmx.css (foundation) pads every button 16px + a 4px gap, which
+   left icon buttons looking over-padded (Izabella, 2026-09-24). */
+.rmx-btn:not(.rmx-btn--icon):not(.rmx-btn--text):not(.rmx-btn--compact):has(> .rmx-btn__label) { padding: var(--spacing-xs); gap: 0; }
+.rmx-btn:not(.rmx-btn--icon):not(.rmx-btn--text):not(.rmx-btn--compact) > .rmx-btn__label { padding: 0 var(--spacing-xs); }
+
+/* Tenant detail, Leases tile: one grid read left to right (Property, Home, Unit first), not four
+   top-to-bottom columns (Izabella, 2026-09-24). Same 16px row / 24px column gaps as .rmx-fieldgrid. */
+.rmx-fieldgrid--flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-md) var(--spacing-xl); }
+@media (max-width: 767px) { .rmx-fieldgrid--flow { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Actions rail on Prospect details / Move-in wizard (Izabella, 2026-09-24): in .rmx-shell (align-items:
+   stretch) it has to opt out of stretching to stay sticky at its own height, as it does in .rmx-tenantshell. */
+.rmx-shell > .rmx-actionrail { align-self: flex-start; }
+
+/* White text on the dark bars (app bar, Context Bar): macOS browsers thicken light-on-dark text by default,
+   so Heading/S/Regular "Unit" read as semibold. Grayscale antialiasing renders it the way Figma does.
+   The weight is unchanged (400), per Context Bar Item, Content=Title Text (Izabella, 2026-09-24). */
+.rmx-contextbar, .rmx-appbar { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* Prospect details History / Notes: the table fits the tile and long notes end in an ellipsis
+   (responsive.css truncates cells) instead of scrolling sideways (Izabella, 2026-09-24). */
+.rmx-register--fit { width: 100%; table-layout: fixed; }
+.rmx-register--fit .rmx-col--date { width: 88px; }
+.rmx-register--fit .rmx-col--type { width: 176px; }
+/* History / Notes + Rent Quotes row keeps the height it had with six history rows (304px) now that it
+   holds two (Izabella, 2026-09-24). Both tiles stretch to it. */
+.rmx-tilerow--history { min-height: 304px; }
+@media (max-width: 1023px) { .rmx-tilerow--history { min-height: 0; } }
+
+/* App bar (48px) and Context Bar (40px) stay pinned while the page scrolls (Izabella, 2026-09-24).
+   z-index sits under the Mega Menu overlay (600), menus (800), scrim (900) and wizard (950).
+   The sticky side panels (tenant list, Actions rail) start below the two bars. */
+.rmx-appbar { position: sticky; top: 0; z-index: 500; }
+.rmx-contextbar { position: sticky; top: 48px; z-index: 500; }
+.rmx-actionrail, .rmx-sidenav { top: calc(88px + var(--spacing-md)); }
+
+/* Move In loading state (Move-in wizard footer, Izabella 2026-09-24). The library Button has no loading
+   state: the button takes its Disabled state, hides its label and the RMX Loading Spinner's ring (148px, node 9426:1561)
+   turns in the middle at the 20px icon size, scaled rather than resized so the SVG keeps its own width/height. */
+.rmx-btnspinner { display: none; position: relative; width: 20px; height: 20px; flex: none; overflow: hidden; }
+.rmx-btnspinner__ring { position: absolute; left: 0; top: 0; transform-origin: 0 0; transform: scale(0.1351);
+  filter: brightness(0) invert(1); }   /* white, keeping the ring's fade (Izabella, 2026-09-24) */
+/* Loading: no text, just the spinner in the middle; the hidden label keeps the button's width (Izabella, 2026-09-24) */
+.rmx-btn[data-loading] { position: relative; }
+.rmx-btn[data-loading] > .rmx-btn__label { visibility: hidden; }
+.rmx-btn[data-loading] .rmx-btnspinner { display: block; position: absolute; left: calc(50% - 10px); top: calc(50% - 10px); animation: rmx-spin 1s linear infinite; }
+@keyframes rmx-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .rmx-btn[data-loading] .rmx-btnspinner { animation-duration: 3s; } }
+
+/* Tenant detail arrival after Move In (Izabella, 2026-09-24): header and Context Bar over an empty grey page
+   for 0.8s, then the scoreboard, tabs and Actions rail fade in and the tiles rise in one after another. */
+[data-arriving] .rmx-tenantshell > * { visibility: hidden; }
+@keyframes rmx-fade { from { opacity: 0; } }
+@keyframes rmx-rise { from { opacity: 0; transform: translateY(var(--spacing-xs)); } }
+[data-revealing] .rmx-scorerow, [data-revealing] .rmx-tabrow, [data-revealing] .rmx-actionrail { animation: rmx-fade .3s ease-out both; }
+[data-revealing] .rmx-tenantshell .rmx-tile { animation: rmx-rise .35s ease-out both; animation-delay: calc(150ms + var(--i, 0) * 70ms); }
+@media (prefers-reduced-motion: reduce) { [data-revealing] * { animation: none !important; } }
