@@ -6,6 +6,8 @@ Home updates project team and stakeholder reviews.
 
 **Owner** Izabella Geza · **Started** 2026-09-23 · **Design system** RMX · **Built with** rmx-prototyping 4.1.0
 
+**Live prototype:** https://igeza.github.io/rmx-home-updates/ (opens on Unit detail) · **Repo:** https://github.com/igeza/rmx-home-updates (public, GitHub Pages from `main` /, like the RMR portal prototype). Published 2026-09-24; push to `main` to update it.
+
 ## Demo flow
 
 1. **Unit detail**: Lot 101 at Flagstone Manufactured Housing, Homeowner Status unassigned (Brand Lozenge, italic placeholder `<Unassigned Homeowner Status>`, Izabella 2026-09-24), with home SW010 on the lot (scoreboard item, Home tab).
